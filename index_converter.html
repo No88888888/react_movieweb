@@ -38,8 +38,8 @@
               id='hours'
               placeholder='Hours'
               type='number'
-              disabled={!inverted}
               onChange={onChange}
+              disabled={!inverted}
             />
           </div>
           <button onClick={reset}>Reset</button>
@@ -49,9 +49,92 @@
         </div>
       )
     }
+
     function KmToMiles() {
-      return <h3> KM 2 M </h3>
+      const [distance, setDistance] = React.useState(0)
+      const [invert, setInvert] = React.useState(false)
+      const onChange = (event) => {
+        setDistance(event.target.value)
+      }
+      const reset = () => setDistance(0)
+      const onInvert = () => {
+        reset()
+        setInvert((current) => !current)
+      }
+      return (
+        <div>
+          <div>
+            <label htmlfor='km'>Km</label>
+            <input
+              value={invert ? distance / 1.6 : distance}
+              id='km'
+              type='number'
+              onChange={onChange}
+              disabled={invert}
+            />
+          </div>
+
+          <div>
+            <label htmlfor='miles'>Miles</label>
+            <input
+              value={invert ? distance : distance * 1.6}
+              id='miles'
+              type='number'
+              onChange={onChange}
+              disabled={!invert}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {invert ? 'not inverted' : 'invert'}
+          </button>
+        </div>
+      )
     }
+    // function KmToMiles() {
+    //   const [distance, setDistance] = React.useState(0)
+    //   const [invert, setInvert] = React.useState(false)
+    //   const onChange = (event) => {
+    //     setDistance(event.target.value)
+    //   }
+    //   const reset = () => setDistance(0)
+    //   const onInverted = () => {
+    //     reset()
+    //     setInvert((current) => !current)
+    //   }
+    //   return (
+    //     <div>
+    //       <div>
+    //         <label htmlfor='km'>Km</label>
+    //         <input
+    //           value={invert ? distance / 1.6 : distance}
+    //           id='km'
+    //           placeholder='Km'
+    //           type='number'
+    //           onChange={onChange}
+    //           disabled={invert}
+    //         />
+    //       </div>
+
+    //       <div>
+    //         <label htmlfor='mile'>Mile</label>
+    //         <input
+    //           value={invert ? distance : distance * 1.6}
+    //           id='mile'
+    //           placeholder='Mile'
+    //           type='number'
+    //           onChange={onChange}
+    //           disabled={!invert}
+    //         />
+    //       </div>
+    //       <button onClick={reset}>Reset</button>
+    //       <button onClick={onInverted}>
+    //         {invert ? 'Not inverted' : 'inverted'}
+    //       </button>
+    //     </div>
+    //   )
+    // }
+
     function App() {
       const [index, setIndex] = React.useState('xx')
       const onSelect = (event) => {
@@ -74,6 +157,6 @@
       )
     }
     const root = document.getElementById('root')
-    ReactDOM.render(<App />, root) // ÃÊ±â ·»´õ¸µ
+    ReactDOM.render(<App />, root) // ê²°êµ­ ë Œë”ë§í•˜ëŠ” ê²ƒì€ App
   </script>
 </html>

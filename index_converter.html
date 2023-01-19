@@ -22,11 +22,25 @@
         <div>
           <div>
             <label htmlfor='minutes'>Minutes</label>
-            <input value={inverted ? amount * 60 : amount} id='minutes' placeholder='Minutes' type='number' onChange={onChange} disabled={inverted} />
+            <input
+              value={inverted ? amount * 60 : amount}
+              id='minutes'
+              placeholder='Minutes'
+              type='number'
+              onChange={onChange}
+              disabled={inverted}
+            />
           </div>
           <div>
             <label htmlfor='hours'>Hours</label>
-            <input value={inverted ? amount : Math.round(amount / 60)} id='hours' placeholder='Hours' type='number' onChange={onChange} disabled={!inverted} />
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id='hours'
+              placeholder='Hours'
+              type='number'
+              onChange={onChange}
+              disabled={!inverted}
+            />
           </div>
           <button onClick={reset}>Reset</button>
           <button onClick={onInvert}>{inverted ? 'Turn back' : 'Invert'}</button>
@@ -53,8 +67,13 @@
       return (
         // html에 보여지는 부분
         <div>
+          {' '}
+          {/* 하나의 div에 담아야 한다*/}
           <div>
-            <label htmlfor='km'>Km</label> // label태그인데 지금은 JS가 아닌 JSX이다 for 사용이 안되므로 htmlfor이라는 예약어를 사용한다
+            {' '}
+            {/* input div */}
+            <label htmlfor='km'>Km</label>{' '}
+            {/* label태그인데 지금은 JS가 아닌 JSX이다 for 사용이 안되므로 htmlfor이라는 예약어를 사용한다 */}
             <input
               value={invert ? distance / 1.6 : distance} // 삼항연산자를 이용해서 invert가 참이면 distance / 1.6이고 거짓이면 distance값
               id='km'
@@ -65,7 +84,13 @@
           </div>
           <div>
             <label htmlfor='miles'>Miles</label>
-            <input value={invert ? distance : distance * 1.6} id='miles' type='number' onChange={onChange} disabled={!invert} />
+            <input
+              value={invert ? distance : distance * 1.6}
+              id='miles'
+              type='number'
+              onChange={onChange}
+              disabled={!invert}
+            />
           </div>
           <button onClick={reset}>Reset</button>
           <button onClick={onInvert}>{invert ? 'not inverted' : 'invert'}</button>

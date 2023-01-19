@@ -22,72 +22,53 @@
         <div>
           <div>
             <label htmlfor='minutes'>Minutes</label>
-            <input
-              value={inverted ? amount * 60 : amount}
-              id='minutes'
-              placeholder='Minutes'
-              type='number'
-              onChange={onChange}
-              disabled={inverted}
-            />
+            <input value={inverted ? amount * 60 : amount} id='minutes' placeholder='Minutes' type='number' onChange={onChange} disabled={inverted} />
           </div>
           <div>
             <label htmlfor='hours'>Hours</label>
-            <input
-              value={inverted ? amount : Math.round(amount / 60)}
-              id='hours'
-              placeholder='Hours'
-              type='number'
-              onChange={onChange}
-              disabled={!inverted}
-            />
+            <input value={inverted ? amount : Math.round(amount / 60)} id='hours' placeholder='Hours' type='number' onChange={onChange} disabled={!inverted} />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onInvert}>
-            {inverted ? 'Turn back' : 'Invert'}
-          </button>
+          <button onClick={onInvert}>{inverted ? 'Turn back' : 'Invert'}</button>
         </div>
       )
     }
 
+    // Ã§¸°Áö Å³·Î¹ÌÅÍ to ¸¶ÀÏ º¯È¯±â ¸¸µé¾îº¸±â
+
+    // ÇÏ³ªÀÇ ÄÄÆ÷³ÍÆ®ÀÌ¸ç SPA¿¡ ÀÇÇØ App ÄÄÆ÷³ÍÆ®¿¡ ¿Ã¸®°Ô µÈ´Ù
     function KmToMiles() {
-      const [distance, setDistance] = React.useState(0)
-      const [invert, setInvert] = React.useState(false)
+      const [distance, setDistance] = React.useState(0) // React.useState´Â [µ¥ÀÌÅÍ, µ¥ÀÌÅÍ Á¶ÀÛ°£À¸ ÇÔ¼ö] ÇüÅÂÀÇ ¹è¿­À» ¹İÈ¯ÇØÁÖ¸ç ¿Ş¦U°ú °°ÀÌ ¹Ù·Î º¯¼ö¸¦ ÇÒ´çÇÒ ¼ö ÀÖ´Ù
+      const [invert, setInvert] = React.useState(false) // ¸¶Âù°¡ÁöÀÌ¸ç À§¿¡´Â ÃÊ±â°ªÀ» 0, ¿©±â¼± ÃÊ±â°ªÀ» fasle·Î
+      // ¾Æ·¡ inputÅÂ±×¿¡¼­ ÀÔ·ÂÀÌ ÁÖ¾îÁú¶§ ÀÏ¾î³¯ ÀÏÀ» ÇÔ¼ö·Î Á¤ÀÇ
       const onChange = (event) => {
-        setDistance(event.target.value)
+        setDistance(event.target.value) // event.target.value¿¡´Â ³»°¡ Å°º¸µå·Î ÀÔ·ÂÇÏ´Â °ªÀÌ ´ä°ÜÀÖ°í ÀÌ¸¦ setDistance ÇÔ¼ö·Î distance°ªÀ» Á¶ÀÛÇÑ´Ù
       }
-      const reset = () => setDistance(0)
+      const reset = () => setDistance(0) // reset¹öÆ°À» À§ÇÑ ÇÔ¼ö setDistance(0)À» ÅëÇØ distance°ªÀ» 0À¸·Î ¸¸µç´Ù
+      // Âü °ÅÁşÀ» ½ºÀ§Ä¡ÇÏ±â À§ÇÑ Åä±Û ÇÔ¼ö
       const onInvert = () => {
-        reset()
-        setInvert((current) => !current)
+        reset() // ÀÏ´Ü distance°ªÀ» 0À¸·Î ÃÊ±âÈ­ÇØÁÖ°í
+        setInvert((current) => !current) // setInvert ÇÔ¼ö¸¦ ÀÌ¿ëÇØ ÇöÀç invert°ªÀ» true¸é fasle·Î false¸é true·Î ¹Ù²ãÁØ´Ù
       }
       return (
+        // html¿¡ º¸¿©Áö´Â ºÎºĞ
         <div>
           <div>
-            <label htmlfor='km'>Km</label>
+            <label htmlfor='km'>Km</label> // labelÅÂ±×ÀÎµ¥ Áö±İÀº JS°¡ ¾Æ´Ñ JSXÀÌ´Ù for »ç¿ëÀÌ ¾ÈµÇ¹Ç·Î htmlforÀÌ¶ó´Â ¿¹¾à¾î¸¦ »ç¿ëÇÑ´Ù
             <input
-              value={invert ? distance / 1.6 : distance}
+              value={invert ? distance / 1.6 : distance} // »ïÇ×¿¬»êÀÚ¸¦ ÀÌ¿ëÇØ¼­ invert°¡ ÂüÀÌ¸é distance / 1.6ÀÌ°í °ÅÁşÀÌ¸é distance°ª
               id='km'
               type='number'
-              onChange={onChange}
-              disabled={invert}
+              onChange={onChange} // °ªÀÌ ÀÔ·ÂµÇ¸é onChange ÇÔ¼ö°¡ ½ÇÇàµÈ´Ù
+              disabled={invert} // boolean°ªÀ» ÀÌ¿ëÇØ disabled¸¦ ÇÑ´Ù
             />
           </div>
-
           <div>
             <label htmlfor='miles'>Miles</label>
-            <input
-              value={invert ? distance : distance * 1.6}
-              id='miles'
-              type='number'
-              onChange={onChange}
-              disabled={!invert}
-            />
+            <input value={invert ? distance : distance * 1.6} id='miles' type='number' onChange={onChange} disabled={!invert} />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onInvert}>
-            {invert ? 'not inverted' : 'invert'}
-          </button>
+          <button onClick={onInvert}>{invert ? 'not inverted' : 'invert'}</button>
         </div>
       )
     }
@@ -157,6 +138,6 @@
       )
     }
     const root = document.getElementById('root')
-    ReactDOM.render(<App />, root) // ê²°êµ­ ë Œë”ë§í•˜ëŠ” ê²ƒì€ App
+    ReactDOM.render(<App />, root) // ê²°êµ­ ? Œ?”ë§í•˜?Š” ê²ƒì?? App
   </script>
 </html>

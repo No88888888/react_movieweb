@@ -1,0 +1,71 @@
+import { useState, useEffect } from "react";
+
+function Hello() {
+  useEffect(() => {
+    console.log("hi :)");
+    return () => console.log("bye :("); // cleanup function (componnent가 없어질때 발동)
+  }, []);
+  return <h1>Hello</h1>;
+}
+
+// 위 내용을 풀어쓰면 다음과 같음
+// function Hello() {
+//   function HiFn() {
+//     console.log("Hi");
+//     return ByeFn;
+//   }
+//   function ByeFn() {
+//     console.log("Bye");
+//   }
+//   useEffect(HiFn, []);
+//   return <h1>Hello</h1>;
+// }
+
+function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => {
+    return setShowing((prev) => !prev);
+  };
+  return (
+    <div>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "show"}</button>
+    </div>
+  );
+
+  // const [counter, setValue] = useState(0);
+  // const [keyword, setKeyword] = useState("");
+  // const onClick = () => setValue((prev) => prev + 1);
+  // const onChange = (event) => setKeyword(event.target.value);
+  // // console.log("i run all the time");
+  // // useEffect 사용하여 한번만 render한다
+  // useEffect(() => {
+  //   console.log("i run only once");
+  // }, []);
+  // // keyword가 변경될때만 re-render한다
+  // useEffect(() => {
+  //   console.log("i run when 'keyword' changes");
+  // }, [keyword]);
+  // // counter가 변경될때만 re-render한다
+  // useEffect(() => {
+  //   console.log("i run when 'counter' changes");
+  // }, [counter]);
+  // // counter 혹은 keyword가 변경될 때 re-render된다
+  // useEffect(() => {
+  //   console.log("i run when 'counter' changes & 'keyword' changes");
+  // }, [counter, keyword]);
+  //   return (
+  //     <div>
+  //       <input
+  //         value={keyword}
+  //         onChange={onChange}
+  //         type="text"
+  //         placeholder="Serch here..."
+  //       />
+  //       <h1>{counter}</h1>
+  //       <button onClick={onClick}>click</button>
+  //     </div>
+  //   );
+}
+
+export default App;
